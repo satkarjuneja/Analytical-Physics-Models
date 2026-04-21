@@ -19,13 +19,13 @@ def accept(grid,point,N,T,J,x,y):
     change=FINAL-INITIAL
     
     if(change<0):
-        return True
+        return True,change
     else:
         x=np.random.uniform()
         if(x<pdf(T,change)):
-            return True
+            return True,change
         else:
-            return False
+            return False,change
             
 
 def total_energy(grid, N, J):
@@ -44,6 +44,7 @@ def generate(N,epsilon,steps,J,T):
     grid=initial_random_values.reshape(N,N)
     ini_grid=grid.copy()
     #Now the Algorithm
+    old_E=total_energy(grid,N,J)
     
     LIMIT=steps*N*N  # Cause one monte carlo step is one step
     for i in range(LIMIT):
@@ -54,14 +55,16 @@ def generate(N,epsilon,steps,J,T):
         
         y=int(point%N)
         x=int(point/N)
-        old_E=total_energy(grid,N,J)
         acc=accept(grid,point,N,T,J,x,y)
         
-        if(acc): # if accepted flip the spin
+        if(acc[0]): # if accepted flip the spin
             grid[x][y]=(-1)*grid[x][y]
-            new_E=total_energy(grid,N,J)
+            new_E=old_E+acc[1] # change
             if(abs(new_E-old_E)<epsilon):
                 break
+            old_E=new_E
+        
+        
         
     return grid,ini_grid
     
