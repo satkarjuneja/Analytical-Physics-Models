@@ -45,6 +45,7 @@ def generate(N,epsilon,steps,J,T):
     ini_grid=grid.copy()
     #Now the Algorithm
     old_E=total_energy(grid,N,J)
+    print(f"Initial: {old_E}")
     
     LIMIT=steps*N*N  # Cause one monte carlo step is one step
     for i in range(LIMIT):
@@ -63,6 +64,7 @@ def generate(N,epsilon,steps,J,T):
             if(abs(new_E-old_E)<epsilon):
                 break
             old_E=new_E
+    print(f"Final: {new_E}")
         
         
         
@@ -87,23 +89,24 @@ def run_matplotlib(N,epsilon,steps,J,T):
                     c=grid.flatten(), cmap='bwr')
     axes[1].set_aspect('equal')
     axes[1].grid(True)
-    axes[1].set_title("Step 1")
+    axes[1].set_title("Final")
 
     axes[2].imshow(ini_grid, cmap='bwr',
                 interpolation='bicubic',
                 origin='lower')
-    axes[2].set_title("Step 2")
+    axes[2].set_title("Initial Heat Map")
 
     axes[3].imshow(grid, cmap='bwr',
                 interpolation='bicubic',
                 origin='lower')
-    axes[3].set_title("Final")
+    axes[3].set_title("Final Heat Map")
 
     plt.show()
     
     
-N=int(input("Enter Number of electrons in a row: "))
+N=10
+print("Running for 10×10")
 T=float(input("Enter Temperature: "))
-run_matplotlib(N,0.0001,100000,1,T)
+run_matplotlib(N,0.000001,100000,1,T)
     
     
