@@ -1,48 +1,70 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider
 
 k = 1
 
-def V_total(q1, q2, x, y, z, d):
-    r1 = np.sqrt(x**2 + y**2 + z**2)
-    r2 = np.sqrt((x - d)**2 + y**2 + z**2)
-    return k * (q1 / r1 + q2 / r2)
-
 def generate_3d(q1, q2, d):
-    x = np.linspace(-2, 3*d, 200)
-    y = np.linspace(-2, 3*d, 200)
-    z = np.linspace(-2, 3*d, 200)
-
+    x = np.linspace(-2, 3 * d, 80)
+    y = np.linspace(-2, 3 * d, 80)
+    z = np.linspace(-2, 3 * d, 80)
     X, Y, Z = np.meshgrid(x, y, z)
-
     r1 = np.sqrt(X**2 + Y**2 + Z**2)
     r2 = np.sqrt((X - d)**2 + Y**2 + Z**2)
-
     eps = 1e-3
     valid = (r1 > eps) & (r2 > eps)
-
-    V = np.zeros_like(X)
+    V = np.full_like(X, np.nan)
     V[valid] = k * (q1 / r1[valid] + q2 / r2[valid])
-    V[~valid] = np.nan
-
     return V, X, Y, Z
 
 def run_matplotlib_3d(q1, q2, d):
     V, X, Y, Z = generate_3d(q1, q2, d)
 
-    mask = np.isclose(V, 0, atol=1e-2)
+    initial_potential = 0.0
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(9, 8))
     ax = fig.add_subplot(projection='3d')
+    fig.subplots_adjust(bottom=0.18)
 
-    ax.scatter(X[mask], Y[mask], Z[mask], s=1)
+    def get_mask(potential):
+        return np.isclose(V, potential, atol=1e-2)
 
-    ax.scatter([0, d], [0, 0], [0, 0], color='black', s=50)
+    mask = get_mask(initial_potential)
+    scatter = ax.scatter(X[mask], Y[mask], Z[mask], s=1, c='steelblue', alpha=0.6)
+    charges = ax.scatter([0, d], [0, 0], [0, 0], color='black', s=80, zorder=5)
 
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('z')
+    ax.set_aspect('equal')
+    title = ax.set_title(f'Equipotential surface  V = {initial_potential:.2f}')
 
+    ax_slider = fig.add_axes([0.15, 0.06, 0.70, 0.03])
+
+    v_min = float(np.nanmin(V[np.isfinite(V)]))
+    v_max = float(np.nanmax(V[np.isfinite(V)]))
+    v_min = max(v_min, -10)
+    v_max = min(v_max,  10)
+
+    slider = Slider(
+        ax=ax_slider,
+        label='Potential V',
+        valmin=v_min,
+        valmax=v_max,
+        valinit=initial_potential,
+        valstep=0.01,
+        color='steelblue',
+    )
+
+    def update(val):
+        potential = slider.val
+        mask = get_mask(potential)
+        pts = np.column_stack([X[mask], Y[mask], Z[mask]])
+        scatter._offsets3d = (pts[:, 0], pts[:, 1], pts[:, 2]) if len(pts) else ([], [], [])
+        title.set_text(f'Equipotential surface  V = {potential:.2f}')
+        fig.canvas.draw_idle()
+
+    slider.on_changed(update)
     plt.show()
 
 run_matplotlib_3d(1, -0.5, 4)
