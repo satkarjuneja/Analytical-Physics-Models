@@ -167,4 +167,4 @@ def run_matplotlib(N,steps,delta_t,L,m):
     plt.show()
 
 # n,steps,time,L,m
-run_matplotlib(10, 100,0.002, 3, 1)
+run_matplotlib(10, 300,0.0001, 3, 1)
