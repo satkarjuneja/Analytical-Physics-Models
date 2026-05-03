@@ -20,6 +20,7 @@ def generate(N,epsilon):
     while (k!=N):
         random_x = np.random.uniform(low=x[k]-epsilon, high=x[k]+epsilon)
         random_y = np.random.uniform(low=y[k]-epsilon, high=y[k]+epsilon)
+        
         if(random_x<=1 and random_x>=-1 and random_y<=1 and random_y>=-1):
             alpha=(e**(-r(random_x,random_y)))/e**(-r(x[k],y[k]))
             alpha=min(1,alpha)
