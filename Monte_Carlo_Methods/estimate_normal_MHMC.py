@@ -14,7 +14,7 @@ def generate(N, epsilon):
     k = 0
     while k != N:
         
-        random_x = x[k] + np.random.laplace(loc=0.0, scale=epsilon)
+        random_x = x[k] + np.random.laplace(loc=0.0, scale=epsilon) # laplacian is the exp function as defined above
 
         # target π(x):  exp(-x^2 / 2)
         pi_new = np.exp(-random_x**2 / 2)
@@ -39,7 +39,7 @@ def run_matplotlib(N, epsilon):
     
     x = generate(N, epsilon)
     
-    # To cehck accuracy
+    # To check accuracy
     mean=np.mean(x)
     var=np.var(x)
     #For Accuracy Calculate and compare mean and var with 0,1 respectivelty(standard gaussian has mean=0 and var=1)

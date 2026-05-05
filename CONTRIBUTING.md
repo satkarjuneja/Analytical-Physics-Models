@@ -9,7 +9,7 @@ Contributions are welcome: new models, better visualizations, or improvements to
    - What physical system is being modeled
    - The governing equation(s) in LaTeX
    - A screenshot or output description
-3. Keep the script self-contained — one file should be runnable on its own
+3. Keep the script self-contained: one file should be runnable on its own
 4. Use `numpy` and `matplotlib` where possible to keep dependencies consistent
 
 ## Improving an Existing Model
@@ -25,4 +25,4 @@ Contributions are welcome: new models, better visualizations, or improvements to
 - One script should do one thing
 
 
-Check the tab for ideas abd bugs
+Check the tab for ideas and bugs

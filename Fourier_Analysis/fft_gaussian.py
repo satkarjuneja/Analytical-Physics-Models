@@ -1,9 +1,12 @@
+# This script uses nmupy fft(fast fourier transform for simple gaussian in comparision with the discrete fourier tranfrom in another script)
 #Taking the simple function e^(-x**2)
 import numpy as np
 import matplotlib.pyplot as plt
 
 def generate(N):
-    t=np.linspace(-50,50,N)
+    """input: N(steps)"""    
+    
+    t=np.linspace(-50,50,N) # time sample
     x=np.exp(-t**2)
     
     #FFT

@@ -14,13 +14,11 @@ app = FastAPI()
 
 @app.post("/api/simulate")
 def read_root(payload: dict):
+    """Run requested file"""
+    
     FILE = payload.get("path")
     subprocess.run(["python", FILE])
-    
-    """
-    Endpoint that returns a simple welcome message.
-    """
-    return {"message": "Hello, World!"}
+    return {"message": "Hello Testing"}
 
 app.mount("/", StaticFiles(directory=".",html=True), name="static")
 

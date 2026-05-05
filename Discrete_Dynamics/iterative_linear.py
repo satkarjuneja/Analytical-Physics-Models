@@ -1,7 +1,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt
 
-def map(x,m):
+def iterative_map(x,m):
     return x*m
 
 def generate(N,m,x0):
@@ -9,7 +9,7 @@ def generate(N,m,x0):
     Y.append(x0)
     prev=x0
     for i in range(N):
-        x=map(prev,m)
+        x=iterative_map(prev,m)
         Y.append(x)
         prev=x
     return Y

@@ -2,12 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 sigma = 1
-epsilon = 1
+epsilon = 1 # Arbitrary units
+BURN_IN=2000
 
 def distance(x1,y1,z1,x2,y2,z2):
+    """ Gives the euclidian distance between 2 points in space
+    input: (x1,y1,z1,x2,y2,z2)
+    """
     return ((x1-x2)**2+(y1-y2)**2+(z1-z2)**2)**0.5
 
 def leonard_jones(r):
+    """Return potential according to leonard jones potential funtion
+    input: r(distance bewteen 2 particles)
+    """
     return 4*epsilon*((sigma/r)**12 - (sigma/r)**6)
 
 def force(i, X, Y, Z, N):
@@ -87,7 +94,7 @@ def generate(N, steps,delta_t, L, m):
         for j in range(i+1, N):
             U += leonard_jones(distance(X[i],Y[i],Z[i],X[j],Y[j],Z[j]))
 
-    for ti in range(steps*N*N): # Monte Carlo Steps
+    for ti in range(steps*N*N): # Monte Carlo Steps (one run steps is equal to 1 montecarlo step)
         
         ax = F[:,0]/m
         ay = F[:,1]/m
@@ -149,17 +156,17 @@ def run_matplotlib(N,steps,delta_t,L,m):
     ax2.set_title("Final")
 
     ax3 = fig.add_subplot(233)
-    ax3.plot(time[2000:], avg_pos[2000:])
+    ax3.plot(time[BURN_IN:], avg_pos[BURN_IN:])
     ax3.grid()
     ax3.set_title("Sample Position vs Time")
 
     ax4 = fig.add_subplot(234)
-    ax4.plot(time[2000:], avg_V[2000:])
+    ax4.plot(time[BURN_IN:], avg_V[BURN_IN:])
     ax4.grid()
     ax4.set_title("Avg Velocity vs Time")
 
     ax5 = fig.add_subplot(235)
-    ax5.plot(time[2000:], avg_E[2000:])
+    ax5.plot(time[BURN_IN:], avg_E[BURN_IN:])
     ax5.grid()
     ax5.set_title("Total Energy vs Time")
 

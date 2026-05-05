@@ -2,14 +2,17 @@ using Plots
 gr()
 
 function heiles_potential(x, y)
+    """potential function for the henon heiles model"""
     return 0.5 * (x^2 + y^2) + x^2 * y - y^3 / 3
 end
 
 function Fx(x, y)
+    """Force in x direction F=-del(U)/del(x)"""
     return -(x + 2 * x * y)
 end
 
 function Fy(x, y)
+    """Force in y direction F=-del(U)/del(y)"""
     return -(y + x^2 - y^2)
 end
 
@@ -48,7 +51,7 @@ function generate(x0, y0, px0, py0, N, delta_t)
 end
 
 function run_energy(E, N, dt)
-
+    """Plotting function"""
     p = scatter(title="E = $E", xlabel="x", ylabel="px",
         legend=false, markersize=1, markerstrokewidth=0)
 
