@@ -17,33 +17,35 @@ def leonard_jones(r):
     """
     return 4*epsilon*((sigma/r)**12 - (sigma/r)**6)
 
-def force(i, X, Y, Z, N):
-    Fx, Fy, Fz = 0.0, 0.0, 0.0
+def calculate_energy(X,Y,Z):
+    dx = X[:, None] - X[None, :]   # N×N displacement matrices
+    dy = Y[:, None] - Y[None, :]
+    dz = Z[:, None] - Z[None, :]
     
-    for j in range(N):
-        if j == i:
-            continue
-        
-        x = X[i] - X[j]
-        y = Y[i] - Y[j]
-        z = Z[i] - Z[j]
-        
-        r = np.sqrt(x*x + y*y + z*z)
-        if r == 0:
-            continue
-        
-        f = 24*epsilon*(2*(sigma**12)/(r**13) - (sigma**6)/(r**7))
-        
-        Fx += f * x / r
-        Fy += f * y / r
-        Fz += f * z / r
-    
-    return np.array([Fx, Fy, Fz])
+    r = np.sqrt(dx**2 + dy**2 + dz**2)
+    np.fill_diagonal(r, np.inf)    # ignore self-interaction
+    u=0
+    u += np.sum(leonard_jones(r))/2 # prevent double counting
+    return u
 
+def force(X, Y, Z):
+    dx = X[:, None] - X[None, :]   # N×N displacement matrices
+    dy = Y[:, None] - Y[None, :]
+    dz = Z[:, None] - Z[None, :]
+    
+    r2 = dx**2 + dy**2 + dz**2
+    np.fill_diagonal(r2, np.inf)    # ignore self-interaction
+    
+    f = 24*epsilon * (2*sigma**12 / r2**7 - sigma**6 / r2**4)
+    np.fill_diagonal(f, 0) # force on self is zero
+    
+    Fx = np.sum(f * dx, axis=1)
+    Fy = np.sum(f * dy, axis=1)
+    Fz = np.sum(f * dz, axis=1)
+    
+    return np.column_stack([Fx, Fy, Fz])
 
 def generate(N, steps,delta_t, L, m):
-    rng = np.random.default_rng(38)
-    
     avg_V = []
     avg_E = []
     sample_pos = []
@@ -51,16 +53,20 @@ def generate(N, steps,delta_t, L, m):
     
     X, Y, Z = [], [], []
     
-    Vx = rng.uniform(-1,1,size=N)
-    Vy = rng.uniform(-1,1,size=N)
-    Vz = rng.uniform(-1,1,size=N)
+    Vx = np.random.uniform(-1,1,size=N)
+    Vy = np.random.uniform(-1,1,size=N)
+    Vz = np.random.uniform(-1,1,size=N)
+    
+    Vx -= np.mean(Vx)
+    Vy -= np.mean(Vy)
+    Vz -= np.mean(Vz)
 
-    r_min = 0.1
+    r_min = 2**(1/6) * sigma   # LJ equilibrium distance, ~1.12
     
     while len(X) < N:
-        x = rng.uniform(-L, L)
-        y = rng.uniform(-L, L)
-        z = rng.uniform(-L, L)
+        x = np.random.uniform(-L, L)
+        y = np.random.uniform(-L, L)
+        z = np.random.uniform(-L, L)
         
         ok = True
         for i in range(len(X)):
@@ -86,13 +92,11 @@ def generate(N, steps,delta_t, L, m):
     Y_ini = Y.copy()
     Z_ini = Z.copy()
     
-    F = np.array([force(i,X,Y,Z,N) for i in range(N)])
+    F = force(X,Y,Z)
     
     # initial potential energy
-    U = 0
-    for i in range(N):
-        for j in range(i+1, N):
-            U += leonard_jones(distance(X[i],Y[i],Z[i],X[j],Y[j],Z[j]))
+    
+    U=calculate_energy(X,Y,Z)
 
     for ti in range(steps*N*N): # Monte Carlo Steps (one run steps is equal to 1 montecarlo step)
         
@@ -105,8 +109,37 @@ def generate(N, steps,delta_t, L, m):
         Y = Y + Vy*delta_t + 0.5*ay*(delta_t**2)
         Z = Z + Vz*delta_t + 0.5*az*(delta_t**2)
         
+        # Reflection of particles from the walls
+        # X walls
+        maskx = X > L
+        X[maskx] = 2*L - X[maskx]
+        Vx[maskx] = -Vx[maskx]
+
+        maskx2 = X < -L
+        X[maskx2] = -2*L - X[maskx2]
+        Vx[maskx2] = -Vx[maskx2]
+
+        # Y walls
+        masky = Y > L
+        Y[masky] = 2*L - Y[masky]
+        Vy[masky] = -Vy[masky]
+
+        masky2 = Y < -L
+        Y[masky2] = -2*L - Y[masky2]
+        Vy[masky2] = -Vy[masky2]
+
+        # Z walls
+        maskz = Z > L
+        Z[maskz] = 2*L - Z[maskz]
+        Vz[maskz] = -Vz[maskz]
+
+        maskz2 = Z < -L
+        Z[maskz2] = -2*L - Z[maskz2]
+        Vz[maskz2] = -Vz[maskz2]
+        
+        
         # recalculate forces
-        F_new = np.array([force(i,X,Y,Z,N) for i in range(N)])
+        F_new = force(X,Y,Z)
         
         ax_new = F_new[:,0]/m
         ay_new = F_new[:,1]/m
@@ -119,10 +152,8 @@ def generate(N, steps,delta_t, L, m):
         
         F = F_new
         
-        U = 0
-        for i in range(N):
-            for j in range(i+1, N):
-                U += leonard_jones(distance(X[i],Y[i],Z[i],X[j],Y[j],Z[j]))
+        U = calculate_energy(X,Y,Z)
+        
         
         K = 0.5 * m * np.sum(Vx**2 + Vy**2 + Vz**2)
         
