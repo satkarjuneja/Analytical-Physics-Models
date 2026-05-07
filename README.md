@@ -8,10 +8,9 @@ app_port: 7860
 pinned: false
 ---
 
-
 # Analytical Physics Models
 
-> Python simulations of analytical physics models combining rigorous mathematical derivations with computational visualizations of classical and modern systems.
+> Python and Julia simulations of analytical physics models combining rigorous mathematical derivations with computational visualizations of classical and modern systems.
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue) ![License](https://img.shields.io/badge/License-MIT-green)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/satkarjuneja/Analytical-Physics-Models)
@@ -22,31 +21,24 @@ pinned: false
 
 This repository is a collection of physics models implemented from first principles. Each model is derived mathematically and then simulated computationally, with the goal of bridging theoretical understanding and numerical experimentation.
 
-Tools used across simulations: `NumPy`, `Matplotlib`, `Manim` ,`Gaussian` ,`Psi4` ,etc.
+Tools used across simulations: `NumPy`, `Matplotlib`,`Gaussian` ,`Psi4` ,`Julia`,etc.
 
 ---
 
 ## Models
-
 | Model | Description | Key Concepts |
 |---|---|---|
-| [Particles in a Box](https://github.com/satkarjuneja/Analytical-Physics-Models/tree/main/Particles%20in%20a%20Box) | This folder contains Python scripts for simulating particles moving inside a 3D box. The goal is to explore how particles distribute themselves under different potential functions and to study their position profiles. | Quantum confinement, wavefunctions |
-| [Ideal Electron](https://github.com/satkarjuneja/Analytical-Physics-Models/tree/main/Ideal%20Electron) | Scripts exploring Random walks of Electrons and related statistical properties. The focus is on Computational Experimentation to understand electron motion and its probabilistic behavior.| Probability Distributions,Expectations |
-| [Calculating Activation and Reaction Energy Of  Reactions](https://github.com/satkarjuneja/Analytical-Physics-Models/tree/main/Calculating%20Activation%20and%20Reaction%20Energy%20Of%20An%20SN2%20Reaction) | Activation and reaction energy calculation for an reaction | Potential energy surfaces, transition state,Quantum Chemistry Methods (HF,DFT,etc.) |
-| [Visualization Using VMD/Pymol](https://github.com/satkarjuneja/Analytical-Physics-Models/tree/main/Modelling%20Using%20VMD) | Basic Examples on how to use Tools like VMD,Pymol | VMD,Pymol,Visualization|
-
----
-
-## Running a Simulation
-
-Each model is self-contained. Navigate into the folder and run the script:
-
-```bash
-cd particles-in-box
-python simulation.py
-```
-
-> Dependencies: `numpy`, `matplotlib` (and `manim` for animation-based models). Install individually as needed.
+| [Particles in a Box](./Particles_in_a_Box) | Quantum mechanical simulation of a particle in a 1D infinite square well. The Hamiltonian is discretized on a grid and diagonalized to yield energy eigenvalues and wavefunctions numerically. | Schrödinger equation, matrix diagonalization, energy quantization, wavefunctions |
+| [Ideal Electron](./Ideal_Electron) | Simulation of electron transport using the Drude model. Electrons are accelerated by an external field and scattered with mean free time τ, reproducing drift velocity, conductivity, and the Einstein relation. | Drift-diffusion, Maxwell-Boltzmann distribution, conductivity, Einstein relation |
+| [MD Simulations](./MD_Simulations) | Molecular dynamics of N particles interacting via the Lennard-Jones potential, integrated with the velocity Verlet algorithm inside a reflective box. | Velocity Verlet integrator, Lennard-Jones potential, energy conservation, reflective boundary conditions |
+| [Ising Model](./Ising_Models) | 2D Ising model evolved using the Metropolis algorithm. Tracks magnetization and specific heat across temperatures to locate the phase transition at T_c ≈ 2.27 J/k. | Metropolis algorithm, spin systems, phase transitions, statistical mechanics |
+| [Monte Carlo Methods](./Monte_Carlo_Methods) | Several Monte Carlo techniques: standard MC, Metropolis-Hastings (MHMC), importance sampling, and inverse transform sampling — demonstrated on π estimation and distribution fitting. | MHMC, importance sampling, inverse transform sampling, variance reduction |
+| [Hamiltonian Chaos](./Hamiltonian_Chaos) | Julia simulation of the Hénon-Heiles system using the Störmer-Verlet symplectic integrator. Poincaré sections reveal the transition from ordered KAM tori to chaotic trajectories as energy increases. | Symplectic integration, Poincaré sections, KAM theorem, Hamiltonian chaos |
+| [Fourier Analysis](./Fourier_Analysis) | Brute-force discrete Fourier transform and FFT applied to a Gaussian, verifying that the FT of a Gaussian is a Gaussian and comparing computational cost of both approaches. | DFT, FFT, spectral analysis, Gaussian transform |
+| [Electrodynamics](./Electrodynamics) | Interactive 3D visualization of equipotential surfaces generated by two point charges. A matplotlib slider sweeps the potential value, updating the surface in real time. | Coulomb potential, equipotential surfaces, superposition |
+| [Discrete Dynamics](./Discrete_Dynamics) | Logistic map bifurcation diagram revealing the period-doubling route to chaos as the growth parameter r varies from 2.5 to 4.0. | Logistic map, bifurcation, period-doubling, deterministic chaos |
+| [Calculating Activation and Reaction Energy](./Calculating_Activation_and_Reaction_Energy_Of_Reactions) | Activation and reaction energy calculations for an SN2 reaction using Hartree-Fock and DFT methods in Gaussian. Log files and analysis scripts included. | Potential energy surfaces, transition state theory, HF, DFT |
+| [Modelling Using VMD](./Modelling_Using_VMD) | Visualization of molecular orbitals and water cluster geometries using VMD and PyMOL. Includes cube files for HOMO/LUMO of water and a 108-molecule water simulation. | Molecular orbitals, HOMO/LUMO, VMD, PyMOL |
 
 ---
 ## Illustrations
@@ -65,10 +57,16 @@ python simulation.py
       <img width="340" src="https://github.com/user-attachments/assets/8ee57a9a-0144-4446-828a-db1fdae65aec" />
       <br><code>Monte_Carlo_Methods/estimate_Gaussian.py</code>
     </td>
+    <td align="center">
+      <img width="667" height="851" alt="image" src="https://github.com/user-attachments/assets/aa31e932-ee6e-438e-becc-06889400a7f3" />
+      <br><code>Modelling_using_VMD/Water_Orbitals/Cube_Files</code>
+    </td>
   </tr>
+
 </table>
 
-
 ## License
-
 MIT — see [LICENSE](./LICENSE)
+
+
+
