@@ -16,7 +16,7 @@ for r in r_samples # iterate through lists
     x = x0
     print("Step: $step\r")
     flush(stdout)
-    for i in 1:N # iterate through a range
+    for i in 1:N # iterate through a range (Julia arrays of 1-indexed)
         x = r * x * (1 - x)
         if i > transient
             push!(xs_plot, x) # append element to an array
