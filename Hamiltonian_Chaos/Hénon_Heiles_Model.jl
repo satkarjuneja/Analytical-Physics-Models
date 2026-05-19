@@ -1,3 +1,5 @@
+# I now realize a better more native version of this exact simulation is available in the julia documentation
+# see: https://docs.sciml.ai/DiffEqDocs/stable/examples/classical_physics/
 using Plots
 gr()
 
