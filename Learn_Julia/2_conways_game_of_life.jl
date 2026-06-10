@@ -16,18 +16,20 @@ col = [1, -1, 1, -1, 0, 1, -1, 0]
 grid = rand(Bool, N, N)  # random 2d array
 dummy = deepcopy(grid)
 
-anim = @animate for p in 1:steps # instead of plotting everything again julia has a builint setup
-    heatmap(grid,
-        color=:binary,
-        aspect_ratio=1,
-        axis=false,
-        legend=false,
-        title="Generation $p")
+anim = @animate for p = 1:steps # instead of plotting everything again julia has a builint setup
+    heatmap(
+        grid,
+        color = :binary,
+        aspect_ratio = 1,
+        axis = false,
+        legend = false,
+        title = "Generation $p",
+    )
 
-    for i in 1:N
-        for j in 1:N
+    for i = 1:N
+        for j = 1:N
             count = 0
-            for k in 1:8 #inclusive
+            for k = 1:8 #inclusive
                 if (dummy[mod1(i + row[k], N), mod1(j + col[k], N)])
                     count += 1
                 end

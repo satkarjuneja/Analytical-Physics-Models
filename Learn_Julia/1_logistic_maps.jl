@@ -1,7 +1,7 @@
 #Checkout the python version if not familier with Logistic Maps
 using Plots  # Import Plots
 
-r_samples = range(2, 4, length=2000) #numpy equivalent of linspace
+r_samples = range(2, 4, length = 2000) #numpy equivalent of linspace
 
 x0 = 0.5 # dynamically typed like python
 N = 1000
@@ -16,7 +16,7 @@ for r in r_samples # iterate through lists
     x = x0
     print("Step: $step\r")
     flush(stdout)
-    for i in 1:N # iterate through a range (Julia arrays of 1-indexed)
+    for i = 1:N # iterate through a range (Julia arrays of 1-indexed)
         x = r * x * (1 - x)
         if i > transient
             push!(xs_plot, x) # append element to an array
@@ -29,13 +29,13 @@ end
 p=scatter(
     rs_plot,
     xs_plot,
-    markersize=0.2,
-    markerstrokewidth=0,
-    color=:black,
-    legend=false,
-    xlabel="r",
-    ylabel="x",
-    title="Logistic Map Bifurcation Diagram"
+    markersize = 0.2,
+    markerstrokewidth = 0,
+    color = :black,
+    legend = false,
+    xlabel = "r",
+    ylabel = "x",
+    title = "Logistic Map Bifurcation Diagram",
 )
 display(p) # shows the plot
 
