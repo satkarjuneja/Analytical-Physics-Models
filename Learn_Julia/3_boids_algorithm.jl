@@ -25,7 +25,7 @@ function separation!(b::Bird, flock::Vector{Bird})
         other === b && continue
         dx = b.x - other.x
         dy = b.y - other.y
-        dist = sqrt(dx^2 + dy^2)
+        dist = sqrt(dx^2 + dy^2) # ^ is for power xor() is used for xor in julia
         if dist < 15 && dist > 0
             b.angle += pi/4
         end
@@ -35,7 +35,7 @@ end
 
 function alignment!(flock::Vector{Bird}) # ! means inplace change of values
     for b in flock
-        neighbours=Bird[]
+        neighbours=Bird[] # type declaration
         for other in flock
             other === b && continue
             dx = b.x - other.x
@@ -68,7 +68,7 @@ function cohesion!(flock::Vector{Bird})
         if !isempty(neighbours)
             x_cm = mean(o.x for o in neighbours)
             y_cm=mean(o.y for o in neighbours)
-            b.angle += 0.01 * (atan((b.y-y_cm), (b.x-x_cm)) - b.angle)
+            b.angle += 0.01 * (atan((b.y-y_cm), (b.x-x_cm)) - b.angle) # cos,sin,acos,etc are native in julia
         end
     end
 
@@ -78,7 +78,7 @@ dt=0.02
 
 function move!(flock)
     for b in flock
-        b.x = (b.x + dt*b.speed*cos(b.angle))%LENGTH
+        b.x = (b.x + dt*b.speed*cos(b.angle))%LENGTH # Periodic boundaries
         b.y = (b.y + dt*b.speed*sin(b.angle))%LENGTH
         if(b.x<0)
             b.x=LENGTH-b.x
@@ -93,13 +93,14 @@ end
 flock=[Bird() for i = 1:100] # make a flock of 100 birds
 
 anim = @animate for t = 1:500
+
     cohesion!(flock)
     alignment!(flock)
     for b in flock
         separation!(b, flock)
     end 
     move!(flock)
-    quiver( # for making arros
+    quiver( # for making arrows
     [b.x for b in flock],
     [b.y for b in flock],
     quiver = ([cos(b.angle)*30 for b in flock], [sin(b.angle)*30 for b in flock]),
