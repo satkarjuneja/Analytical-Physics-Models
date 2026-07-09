@@ -1,5 +1,0 @@
-fastapi
-uvicorn
-numpy
-matplotlib
-plotly
