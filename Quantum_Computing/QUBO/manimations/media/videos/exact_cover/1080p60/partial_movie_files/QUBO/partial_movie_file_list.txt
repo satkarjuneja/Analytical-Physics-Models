@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2257293077_214846946_223132457.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_1839128356_3783721167.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_3649468257_2781239251.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_3273882021_436383532.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_1839128356_1933801922.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_877242365_4171271330.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_2973714237_3510569094.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_2704686740_3941773634.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/QUBO/2135761390_3841762063_1539843664.mp4'

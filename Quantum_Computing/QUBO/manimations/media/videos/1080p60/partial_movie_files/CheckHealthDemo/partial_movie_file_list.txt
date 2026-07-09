@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00000.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00001.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00002.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00003.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00004.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00005.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/1080p60/partial_movie_files/CheckHealthDemo/uncached_00006.mp4'

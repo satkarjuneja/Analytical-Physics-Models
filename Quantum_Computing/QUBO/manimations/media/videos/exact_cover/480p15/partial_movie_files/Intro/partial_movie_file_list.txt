@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/480p15/partial_movie_files/Intro/1584795214_1037651419_223132457.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/480p15/partial_movie_files/Intro/4072820271_3463888599_189147437.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/480p15/partial_movie_files/Intro/4072820271_2704686740_3393323599.mp4'
+file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/480p15/partial_movie_files/Intro/4072820271_4029269853_2634975596.mp4'
