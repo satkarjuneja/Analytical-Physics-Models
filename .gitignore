@@ -3,3 +3,8 @@
 Gravitation/
 *.tar.gz
 QUBO/manimations
+*.html
+models.json
+requirement.txt
+Dockerfile
+backend.py
