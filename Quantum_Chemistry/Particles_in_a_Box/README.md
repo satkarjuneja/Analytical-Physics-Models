@@ -29,39 +29,5 @@ These simulations provide a simple way to **Study particle behavior and density 
 $F_x=\frac{\partial U}{\partial x}$ <br>
 $F_x = \frac{\partial U}{\partial r_{ij}} \cdot \frac{\partial r_{ij}}{\partial x}$ <br>
 
-## Potential Well Simulations
-
----
-### Asymmetric Double-Well Potential
-**File:** `asymmetric_double_well.py`  
-**Potential:**  
-$U(x, y) = (x^2 - 1)^2 + (y^2 - 1)^2 + \frac{x^2 y}{2}$
-- Two unequal wells with nonlinear \(x^2y\) coupling.  
-- Particle moves under \( \vec{F} = -\nabla U \) until equilibrium.  
-- Includes a 3D plot of the energy surface.
-
----
-
-### Modified Quartic Bivariate Potential
-**File:** `quartic_bivariate.py`  
-**Potential:**  
-$U(x, y) = (x^4 + y^4) - 3(x^2 + y^2) + xy$
-- Quartic surface with \(xy\) cross-coupling.  
-- Visualizes potential evolution and 3D surface.  
-- Represents two coupled anharmonic oscillators.
-
----
-
-###  Triple-Well (Sextic) Potential
-**File:** `triple_well.py`  
-**Potential:**  
-$U(x) = x^6 - 5x^4 + 4x^2$
-- Symmetric 1D potential with three wells.  
-- Demonstrates multiple stable equilibria and relaxation.
-
----
-
-
----
 
 

@@ -1,3 +1,6 @@
+# This is a simple exercise to take a random configuration of 108 water molecules and calculating
+# U and cumulative Fₓ
+
 import numpy as np
 import matplotlib.pyplot as plt
 import random
@@ -5,9 +8,9 @@ import random
 # Helper Functions
 
 def distance(x1, y1, z1, x2, y2, z2):
-    return ((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)**0.5
+    return np.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
-def lj_potential(r, sigma=3.4, epsilon=1.0):
+def lj_potential(r, sigma=3.4, epsilon=1.0): # leonard jones potential
     return 4 * epsilon * ((sigma/r)**12 - (sigma/r)**6)
 
 def numerical_derivative(f, x, dx=1e-6):
@@ -36,6 +39,7 @@ z_data = np.array(z_data)
 #Potential Energy Calculation 
 
 U = 0
+df=0 # cumulative force
 U_data = []
 xi = 2  # reference particle index
 
@@ -43,7 +47,7 @@ for i in range(num):
     for j in range(i+1, num):
         R = distance(x_data[i], y_data[i], z_data[i], x_data[j], y_data[j], z_data[j])
         if R > 3.4:
-            U = lj_potential(R)
+            U += lj_potential(R)
             U_data.append(U)
 
 #Force on reference particle (x-component)
@@ -52,7 +56,7 @@ for i in range(num):
     if i != xi:
         def f(x):
             return distance(x, y_data[xi], z_data[xi], x_data[i], y_data[i], z_data[i])
-        df = numerical_derivative(f, x_data[xi])
+        df += numerical_derivative(f, x_data[xi])
 
 print("U =", U)
 print("Fx1 =", df)

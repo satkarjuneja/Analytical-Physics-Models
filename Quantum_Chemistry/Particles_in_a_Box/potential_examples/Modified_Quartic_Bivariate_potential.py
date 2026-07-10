@@ -1,13 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import random
 
 def U(x,y):
-    return (x**2-1)**2+(y**2-1)**2+(x**2)*y/2
+    return (x**4+y**4)-3*(x**2+y**2)+x*y
 def Fx(x,y):
-    return -(2*(x**2-1)*(2*x)+x*y)
+    return -((4*x**3)-3*(2*x)+y)
 def Fy(x,y):
-    return -(2*(y**2-1)*(2*y)+x**2/2)
+    return -((4*y**3)-3*(2*y)+x)
 
 xchar=input("Enter The Initial X-Coordinate: ")
 ychar=input("Enter The Initial Y-Coordinate: ")

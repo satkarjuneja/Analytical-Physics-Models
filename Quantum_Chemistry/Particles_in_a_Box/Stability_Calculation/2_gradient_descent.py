@@ -1,28 +1,48 @@
+# Given an energy landscape U(x,y) determine the most stable position for a particle
+# gradient descent
+# The algorithm is as follows:
+
+# 1. start at a random position of choice
+
+# 2. measure the force acting on the particle
+# F = -dU/dr
+
+# 3. Move the particle in the direction of the force using a fixed step size α
+
+# R4. epeat until F decreases below a certain threshold
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
-import random
 
-def U(x,y):
-    return (x**4+y**4)-3*(x**2+y**2)+x*y
-def Fx(x,y):
-    return -((4*x**3)-3*(2*x)+y)
-def Fy(x,y):
-    return -((4*y**3)-3*(2*y)+x)
+def U(x,y): # chosen potential function
+    return (x**2-1)**2+(y**2-1)**2+(x**2)*y/2
 
+def Fx(x,y): # Fₓ = -dU/dx
+    return -(2*(x**2-1)*(2*x)+x*y)
+
+def Fy(x,y): # Fᵢ = -dU/dy
+    return -(2*(y**2-1)*(2*y)+x**2/2)
+
+# choose a starting point
 xchar=input("Enter The Initial X-Coordinate: ")
 ychar=input("Enter The Initial Y-Coordinate: ")
 x0=float(xchar)
 y0=float(ychar)
+
 xdata=[]
 ydata=[]
-ep=0.0008
-alp=0.01
+ep=0.0008 # due to floating point arithematic F will never be exactly zero
+# so accept F below a certain threshold as zero
+
+α=0.01
 x=x0
 y=y0
 Udata=[]
 step=[]
 
-plt.ion()
+plt.ion() # plot with interactive mode on (ion)
 fig = plt.figure(figsize=(10,5))
 ax1 = fig.add_subplot(121)  
 ax2 = fig.add_subplot(122, projection='3d') 
@@ -39,8 +59,8 @@ ax2.set_title('3D Potential Surface')
 
 for i in range(1000):
     step.append(i)
-    x += alp * Fx(x,y)
-    y += alp * Fy(x,y)
+    x += α * Fx(x,y)
+    y += α * Fy(x,y)
     xdata.append(x)
     ydata.append(y)
     Udata.append(U(x,y))
