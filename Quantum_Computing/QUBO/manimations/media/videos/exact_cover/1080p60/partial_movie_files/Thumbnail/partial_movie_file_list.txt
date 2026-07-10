@@ -1,2 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/home/username/Desktop/Analytical-Physics-Models/QUBO/manimations/media/videos/exact_cover/1080p60/partial_movie_files/Thumbnail/370282248_4237291445_3627416724.mp4'

@@ -2,7 +2,7 @@
 .directory
 Gravitation/
 *.tar.gz
-QUBO/manimations
+Quantum_Computing/QUBO/manimations
 *.html
 models.json
 requirement.txt
