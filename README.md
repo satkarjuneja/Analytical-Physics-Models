@@ -1,13 +1,3 @@
----
-title: Analytical Physics Models
-emoji: ⚛️
-colorFrom: blue
-colorTo: purple
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # Analytical Physics Models
 
 > Python and Julia simulations of analytical physics models combining rigorous mathematical derivations with computational visualizations of classical and modern systems.
