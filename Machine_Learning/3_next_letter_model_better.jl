@@ -93,3 +93,4 @@ end
 # Drawbacks
 # can only predict words for input in the small dictionary
 # SLOW :(
+# Overtrained to Moby Dick

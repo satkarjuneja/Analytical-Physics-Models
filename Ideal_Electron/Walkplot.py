@@ -38,8 +38,8 @@ def run_matplotlib():
         location_data.append(position)
 
         plt.cla()
-        plt.plot(step_data, location_data, color='black', linestyle='-')
-        plt.plot(i, position, 'o', color='red')
+        plt.plot(step_data, location_data, color="black", linestyle="-")
+        plt.plot(i, position, "o", color="red")
         plt.grid(True)
         plt.pause(0.01)
 
@@ -54,29 +54,27 @@ def run_plotly():
     fig = go.Figure()
 
     # full path
-    fig.add_trace(go.Scatter(
-        x=step_data,
-        y=location_data,
-        mode='lines',
-        name='Walk'
-    ))
+    fig.add_trace(go.Scatter(x=step_data, y=location_data, mode="lines", name="Walk"))
 
     # final position
-    fig.add_trace(go.Scatter(
-        x=[step_data[-1]],
-        y=[location_data[-1]],
-        mode='markers',
-        name='Final Position'
-    ))
+    fig.add_trace(
+        go.Scatter(
+            x=[step_data[-1]],
+            y=[location_data[-1]],
+            mode="markers",
+            name="Final Position",
+        )
+    )
 
     fig.update_layout(
         title="1D Random Walk of a Drunkard",
         xaxis_title="Steps",
-        yaxis_title="Location"
+        yaxis_title="Location",
     )
 
     fig.write_html("Ideal_Electron/web_src/Walkplot.html")
     fig.show()
-    
+
+
 # run_matplotlib()
 run_plotly()

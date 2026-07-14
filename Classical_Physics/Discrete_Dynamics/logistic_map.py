@@ -10,10 +10,10 @@ for r in r_values:
     x = x0
     xs = []
     for i in range(N):
-        x = r*x*(1-x)
+        x = r * x * (1 - x)
         if i >= transient:
             xs.append(x)
-    plt.plot([r]*len(xs), xs, ',k')
+    plt.plot([r] * len(xs), xs, ",k")
 
 plt.xlabel("r")
 plt.ylabel("x")

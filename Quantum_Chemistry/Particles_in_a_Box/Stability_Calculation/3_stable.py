@@ -6,14 +6,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def LeonardJones(R):
-    return 4 * ((3.4 / R)**12 - (3.4 / R)**6)
+    return 4 * ((3.4 / R) ** 12 - (3.4 / R) ** 6)
+
 
 def force(R):
     return 4 * ep * ((3.4**12) * (-12) / (R**13) + (3.4**6) * (6) / (R**7))
 
+
 def dis(x1, y1, z1, x2, y2, z2):
-    return np.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+    return np.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2)
 
 
 x_data = []
@@ -26,7 +29,9 @@ radius = 1.7
 while len(x_data) < num:
     cx, cy, cz = np.random.uniform(-size + radius, size - radius, 3)
     if x_data:
-        distances=dis(np.array(x_data),np.array(y_data),np.array(z_data),cx,cy,cz)
+        distances = dis(
+            np.array(x_data), np.array(y_data), np.array(z_data), cx, cy, cz
+        )
         if np.all(distances >= 2 * radius):
             x_data.append(cx)
             y_data.append(cy)
@@ -47,14 +52,14 @@ distance = np.zeros((num, num))
 U = 0
 for i in range(num):
     for j in range(i + 1, num):
-        R = dis(x_data[i],y_data[i],z_data[i],x_data[j],y_data[j],z_data,[j])
+        R = dis(x_data[i], y_data[i], z_data[i], x_data[j], y_data[j], z_data, [j])
         distance[i, j] = R
         distance[j, i] = R
         U += LeonardJones(R)
 
 Utime = [U]
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+ax = fig.add_subplot(111, projection="3d")
 plt.ion()
 
 previous_U = U
@@ -65,7 +70,9 @@ for k in range(1000):
         p = 0
         for j in range(num):
             if i != j:
-                R = dis(x_data[i],y_data[i],z_data[i],x_data[j],y_data[j],z_data,[j])
+                R = dis(
+                    x_data[i], y_data[i], z_data[i], x_data[j], y_data[j], z_data, [j]
+                )
                 p += force(R)
         Upar.append(p)
 
@@ -74,7 +81,9 @@ for k in range(1000):
         x, y, z = 0, 0, 0
         for j in range(num):
             if i != j:
-                R = dis(x_data[i],y_data[i],z_data[i],x_data[j],y_data[j],z_data,[j])
+                R = dis(
+                    x_data[i], y_data[i], z_data[i], x_data[j], y_data[j], z_data, [j]
+                )
                 if R != 0:
                     x += -Upar[i] * (x_data[i] - x_data[j]) / R
                     y += -Upar[i] * (y_data[i] - y_data[j]) / R
@@ -91,20 +100,22 @@ for k in range(1000):
     U_current = 0
     for i in range(num):
         for j in range(i + 1, num):
-            R = dis(x_data[i],y_data[i],z_data[i],x_data[j],y_data[j],z_data,[j])
+            R = dis(x_data[i], y_data[i], z_data[i], x_data[j], y_data[j], z_data, [j])
             U_current += LeonardJones(R)
 
     Utime.append(U_current)
 
     if U_current > previous_U * 2:
-        print(f"[Warning] k={k}: Potential spiked from {previous_U:.5f} to {U_current:.5f}")
+        print(
+            f"[Warning] k={k}: Potential spiked from {previous_U:.5f} to {U_current:.5f}"
+        )
 
     previous_U = U_current
 
-    if k % 5 == 0: # plot every 5 steps to prevent overload
+    if k % 5 == 0:  # plot every 5 steps to prevent overload
         ax.cla()
         ax.scatter(x_data, y_data, z_data, s=5)
-        ax.text(0, 25, 25, f"U = {U_current:.6f}", color='red')
+        ax.text(0, 25, 25, f"U = {U_current:.6f}", color="red")
         plt.draw()
         plt.pause(0.001)
 
