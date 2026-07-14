@@ -19,7 +19,7 @@ end
 
 function backpropagate(first_letter, second_letter, y_pred, y_true, alpha)
     
-    if(y_pred==y_true)
+    if(y_pred==Int(y_true))
         return # if prediction is correct do nothing
     end
 

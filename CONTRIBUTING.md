@@ -4,13 +4,12 @@ Contributions are welcome: new models, better visualizations, or improvements to
 
 ## Adding a New Model
 
-1. Create a folder at the repo root using underscores: `My_New_Model/`
-2. Add a `README.md` inside it with:
+1. Create a file in the relevant category: 'my_new_model`
+2. Add comments inside it with:
    - What physical system is being modeled
-   - The governing equation(s) in LaTeX
-   - A screenshot or output description
+   - The governing equation(s)
+   - output description
 3. Keep the script self-contained: one file should be runnable on its own
-4. Use `numpy` and `matplotlib` where possible to keep dependencies consistent
 
 ## Improving an Existing Model
 
@@ -20,9 +19,8 @@ Contributions are welcome: new models, better visualizations, or improvements to
 
 ## Code Style
 
-- Name variables descriptively — no single letters except loop indices
+- Name variables descriptively
 - Comment magic numbers (what is `3.4`? what units?)
 - One script should do one thing
 
-
-Check the tab for ideas and bugs
+Check the issues tab for ideas and bugs
