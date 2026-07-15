@@ -8,8 +8,8 @@
 function bit_strings(n)
     arr = []
 
-    for i in 0:(2^n - 1)
-        s = digits(i, base=2, pad=n) # convert number to bit string
+    for i = 0:(2^n-1)
+        s = digits(i, base = 2, pad = n) # convert number to bit string
         push!(arr, s)
     end
 
@@ -21,9 +21,9 @@ e = parse(Int, readline())
 
 edges = Tuple{Int,Int}[]
 
-for _ in 1:e
+for _ = 1:e
     a, b = parse.(Int, split(readline()))
-    push!(edges, (a,b))
+    push!(edges, (a, b))
 end
 
 bits = bit_strings(n)
@@ -34,7 +34,7 @@ for b in bits
 
     count = 0
 
-    for (u,v) in edges
+    for (u, v) in edges
         count += xor(b[u], b[v])
     end
 

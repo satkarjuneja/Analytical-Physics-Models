@@ -38,7 +38,7 @@ tspan = (0.0, 50.0)   # time period to run the simulation for
 
 
 prob = ODEProblem(lorenz!, u0, tspan, p)
-sol  = solve(prob, Tsit5()) # choose your algorithm and pass the problem
+sol = solve(prob, Tsit5()) # choose your algorithm and pass the problem
 
 #Tsit5 is a 4th/5th order explicit Runge-Kutta method with adaptive step size. 
 #The "5" is the order. It's the default recommendation in DifferentialEquations.jl
@@ -46,7 +46,7 @@ sol  = solve(prob, Tsit5()) # choose your algorithm and pass the problem
 # RK4 it uses an embedded error estimate to automatically shrink or grow the step
 # size based on how fast the solution is changing.
 
-display(plot(sol, idxs=(1,2,3))) # 3D phase portrait, x vs y vs z
+display(plot(sol, idxs = (1, 2, 3))) # 3D phase portrait, x vs y vs z
 xlabel!("x")
 ylabel!("y")
 zlabel!("z")

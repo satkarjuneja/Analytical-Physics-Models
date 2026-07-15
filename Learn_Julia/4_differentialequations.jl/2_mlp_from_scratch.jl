@@ -35,12 +35,12 @@ function NN(x)
     return y
 end
 
-function backpropogate(y,y_true, alpha,x) # alpha is the rate of changing the variables (learning rate)
+function backpropogate(y, y_true, alpha, x) # alpha is the rate of changing the variables (learning rate)
     global W1, b1, W2, b2
     h=tanh.(W1 * x .+ b1)
     # now you can differentiate y the loss function wrt every variable and modify our weights
 
-    dL_dy = 2 * (y .-y_true)
+    dL_dy = 2 * (y .- y_true)
 
     dL_dW2 = dL_dy * h' # ' is the transpose operator in julia
     W2 = W2 - dL_dW2 * alpha
@@ -62,22 +62,20 @@ function backpropogate(y,y_true, alpha,x) # alpha is the rate of changing the va
 end
 
 # Training loop
-x_plot = range(-pi, pi, length=200)
+x_plot = range(-pi, pi, length = 200)
 
-@animate for i in 1:2000
-    x = rand(Uniform(-pi,pi))
+@animate for i = 1:2000
+    x = rand(Uniform(-pi, pi))
     y_true = sin(x)
     y = NN(x)
     loss = (y_true - y[1])^2 #cause of all the array stuff we did y is a Matrix of dim=1*1
-    backpropogate(y,y_true,0.01,x)
+    backpropogate(y, y_true, 0.01, x)
 
     y_true_plot = sin.(x_plot)
     y_pred_plot = [NN(i)[1] for i in x_plot]
 
-    plot(x_plot, [y_true_plot, y_pred_plot], label=["sin(x)" "NN(x)"],title="Step $i")
+    plot(x_plot, [y_true_plot, y_pred_plot], label = ["sin(x)" "NN(x)"], title = "Step $i")
 end
 
 
 readline()
-
-

@@ -70,7 +70,7 @@ Y_test = hcat(Y_test...)     # 26 × 100 matrix
 model = Flux.Chain(
     Flux.Dense(26 => 128, tanh),
     Flux.Dense(128 => 128, tanh),
-    Flux.Dense(128 => 26)
+    Flux.Dense(128 => 26),
 )
 
 loss(m, x, y) = Flux.mse(m(x), y) # loss function  
@@ -79,7 +79,7 @@ data = [(X_train, Y_train)]
 
 opt_state = Flux.setup(Flux.Adam(0.01), model) # Adam: Adamtive Moment Estimation
 
-for i in 1:length(X_train) # training loop
+for i = 1:length(X_train) # training loop
     Flux.train!(loss, model, data, opt_state)
     if i % 100 == 0
         println("Epoch $i | loss: $(loss(model, X_train, Y_train))")
@@ -91,10 +91,34 @@ println("Test loss: ", loss(model, X_test, Y_test))
 
 #------------------
 
-alphabet = Dict(1=>'a', 2=>'b', 3=>'c', 4=>'d', 5=>'e', 6=>'f', 7=>'g', 8=>'h',
-    9=>'i', 10=>'j', 11=>'k', 12=>'l', 13=>'m', 14=>'n', 15=>'o',
-    16=>'p', 17=>'q', 18=>'r', 19=>'s', 20=>'t', 21=>'u', 22=>'v',
-    23=>'w', 24=>'x', 25=>'y', 26=>'z')
+alphabet = Dict(
+    1=>'a',
+    2=>'b',
+    3=>'c',
+    4=>'d',
+    5=>'e',
+    6=>'f',
+    7=>'g',
+    8=>'h',
+    9=>'i',
+    10=>'j',
+    11=>'k',
+    12=>'l',
+    13=>'m',
+    14=>'n',
+    15=>'o',
+    16=>'p',
+    17=>'q',
+    18=>'r',
+    19=>'s',
+    20=>'t',
+    21=>'u',
+    22=>'v',
+    23=>'w',
+    24=>'x',
+    25=>'y',
+    26=>'z',
+)
 
 # Now after training lets take a word as input and see the prediction
 while (true)
@@ -116,7 +140,7 @@ while (true)
     # we can only determine the letters used not the order in which they are predicted
 
     alpha_word = ""
-    for i in 1:length(ans)
+    for i = 1:length(ans)
         if ans[i] > 0.5
             alpha_word *= alphabet[i]
         end

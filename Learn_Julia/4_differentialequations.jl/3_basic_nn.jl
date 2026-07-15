@@ -14,10 +14,10 @@ const g=9.81
 L=1
 
 # Initial conditions
-u=[0,pi/2] #   θ, ω
-tspan=(0,1)
+u=[0, pi/2] #   θ, ω
+tspan=(0, 1)
 
-function pendulum(du,u,p,t)
+function pendulum(du, u, p, t)
     θ, ω=u
     du[1]=ω
     du[2] = -(g / L) * sin(θ)
@@ -47,7 +47,7 @@ Y_test = Float32.(hcat(y_test...))
 model = Flux.Chain(
     Flux.Dense(1 => 32, tanh),
     Flux.Dense(32 => 32, tanh),
-    Flux.Dense(32 => 2)              # outputs [θ, ω]
+    Flux.Dense(32 => 2),              # outputs [θ, ω]
 )
 
 loss(m, x, y) = Flux.mse(m(x), y) #function can be defined this way
@@ -55,7 +55,7 @@ data = [(X_train, Y_train)]
 
 opt_state = Flux.setup(Flux.Adam(0.01), model) # Adam: Adamtive Moment Estimation
 
-for i in 1:1000
+for i = 1:1000
     Flux.train!(loss, model, data, opt_state)
     if i % 100 == 0
         println("Epoch $i | loss: $(loss(model, X_train, Y_train))")

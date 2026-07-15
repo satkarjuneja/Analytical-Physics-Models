@@ -44,25 +44,31 @@ function generate(x0, y0, px0, py0, N, delta_t)
     end
 
     # Masking for making Poincare Sections
-    
-    mask = (y[1:end-1] .< 0) .& (y[2:end] .> 0) .& (py[2:end] .> 0)
-    x_m = x[1:end-1]
-    px_m = px[1:end-1]
+
+    mask = (y[1:(end-1)] .< 0) .& (y[2:end] .> 0) .& (py[2:end] .> 0)
+    x_m = x[1:(end-1)]
+    px_m = px[1:(end-1)]
 
     return x_m[mask], px_m[mask]
 end
 
 function run_energy(E, N, dt)
     """Plotting function"""
-    p = scatter(title="E = $E", xlabel="x", ylabel="px",
-        legend=false, markersize=1, markerstrokewidth=0)
+    p = scatter(
+        title = "E = $E",
+        xlabel = "x",
+        ylabel = "px",
+        legend = false,
+        markersize = 1,
+        markerstrokewidth = 0,
+    )
 
-    for x0 in range(-0.4, 0.4, length=10)
+    for x0 in range(-0.4, 0.4, length = 10)
         rem = E - heiles_potential(x0, 0.0) # KE
         rem <= 0 && continue
         py0 = sqrt(2 * rem)
         sx, spx = generate(x0, 0.0, 0.0, py0, N, dt)
-        scatter!(p, sx, spx, markersize=1, markerstrokewidth=0)
+        scatter!(p, sx, spx, markersize = 1, markerstrokewidth = 0)
     end
 
     return p
@@ -75,7 +81,14 @@ p1 = run_energy(0.08, N, dt)
 p2 = run_energy(0.12, N, dt)
 p3 = run_energy(0.167, N, dt)
 
-fig = plot(p1, p2, p3, layout=(1, 3), size=(1400, 500), plot_title="Henon-Heiles Poincare Sections")
+fig = plot(
+    p1,
+    p2,
+    p3,
+    layout = (1, 3),
+    size = (1400, 500),
+    plot_title = "Henon-Heiles Poincare Sections",
+)
 
 display(fig)
 readline()

@@ -42,7 +42,7 @@ function alignment!(flock::Vector{Bird}) # ! means inplace change of values
             dy = b.y - other.y
             dist = sqrt(dx^2 + dy^2)
             if dist < 250 && dist > 0
-                push!(neighbours,other)
+                push!(neighbours, other)
             end
         end
         if !isempty(neighbours)
@@ -62,7 +62,7 @@ function cohesion!(flock::Vector{Bird})
             dy = b.y - other.y
             dist = sqrt(dx^2 + dy^2)
             if dist < 250 && dist > 0
-                push!(neighbours,other)
+                push!(neighbours, other)
             end
         end
         if !isempty(neighbours)
@@ -80,10 +80,10 @@ function move!(flock)
     for b in flock
         b.x = (b.x + dt*b.speed*cos(b.angle))%LENGTH # Periodic boundaries
         b.y = (b.y + dt*b.speed*sin(b.angle))%LENGTH
-        if(b.x<0)
+        if (b.x<0)
             b.x=LENGTH-b.x
         end
-        if(b.y<0)
+        if (b.y<0)
             b.y=LENGTH-b.y
         end
     end
@@ -98,18 +98,19 @@ anim = @animate for t = 1:500
     alignment!(flock)
     for b in flock
         separation!(b, flock)
-    end 
+    end
     move!(flock)
     quiver( # for making arrows
-    [b.x for b in flock],
-    [b.y for b in flock],
-    quiver = ([cos(b.angle)*30 for b in flock], [sin(b.angle)*30 for b in flock]),
-    legend = false,
-    xlims = (0, 5000), ylims = (0, 5000),
-    aspect_ratio = :equal,
-    arrow = true,
-    linewidth = 2,
-    size = (1200, 1200),
-    title = "Boids t=$t",
+        [b.x for b in flock],
+        [b.y for b in flock],
+        quiver = ([cos(b.angle)*30 for b in flock], [sin(b.angle)*30 for b in flock]),
+        legend = false,
+        xlims = (0, 5000),
+        ylims = (0, 5000),
+        aspect_ratio = :equal,
+        arrow = true,
+        linewidth = 2,
+        size = (1200, 1200),
+        title = "Boids t=$t",
     )
 end

@@ -38,7 +38,7 @@ model = Flux.Chain(
     E,
     Flux.Dense(embed_dim => 16, tanh),
     Flux.Dense(16 => vocab_size)
-)
+    )
 
 loss(m, x, y) = Flux.logitcrossentropy(m(x), y)
 # this loss function is used specifically for words
@@ -60,7 +60,7 @@ end
 
 println("Encoded Dataset")
 
-for i in 1:1000 # training loop
+for i = 1:1000 # training loop
     println(i)
     Flux.train!(loss, model, data, opt_state)
     if i % 100 == 0
