@@ -79,14 +79,15 @@ end
 # just merges the most common pair
 # this is just a design Choice (a poor one)
 
-for i in 1:10 # run this an arbitarty number of times, each time it will lead to bigger tokens
+for i in 1:20 # run this an arbitarty number of times, each time it will lead to bigger tokens
     for word in vocab_itimized
         tokenizer(word)
     end
 end
 
+df_tokens = DataFrame(token = collect(keys(tokens)))
 
-
+CSV.write("5_tokens_dataset.csv",df_tokens)
 # Now here either we can use the old flux.chain by taking avg of all the vector of the input tokens
 # then the ouput would be a single word and similar to what we have already done
 
@@ -97,3 +98,4 @@ end
 #     )
 
 
+# Now we will put all these tokens into a csv so we can use them for the next model 
