@@ -25,7 +25,7 @@ Transition_Matrix=zeros(n, n)
 # Now we must break  prompt into tokens 
 # If the prompt has words which do not match to any token then they matched to the '<unk>' token
 
-function word_tokenizer(word, tokenized_prompt) # Greedy Prefix algorithm to tokenize a word
+function word_tokenizer(word, tokenized_prompt) # non-Greedy Prefix algorithm to tokenize a word
     partial_token=""
     last_match=""
     for letter in word # take a letter of a word
